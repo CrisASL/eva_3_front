@@ -14,7 +14,7 @@ import { Link as MuiLink } from '@mui/material';
 
 const navItems = [
   { text: 'Quiénes somos', href: '#quienes-somos' },
-  { text: 'Servicios', href: '#servicios' }, // Agregado aquí
+  { text: 'Servicios', href: '#servicios' },
   { text: 'Productos', href: '#productos' },
   { text: 'Contacto', href: '#contacto' },
 ];
@@ -50,28 +50,31 @@ const Header = () => {
 
   return (
     <>
-      <AppBar
-        position="sticky"
-        sx={{ backgroundColor: '#A0522D' }}
-        elevation={2}
-      >
-        <Container maxWidth="xl">
+      <AppBar position="sticky" sx={{ backgroundColor: '#A0522D' }} elevation={2}>
+        <Container maxWidth="xl" disableGutters>
           <Toolbar
             disableGutters
             sx={{
-              justifyContent: 'space-between',
-              minHeight: { xs: 68, sm: 76 }
+              display: 'flex',
+              alignItems: 'center',
+              minHeight: { xs: 68, sm: 76 },
+              paddingLeft: 0,
+              paddingRight: 0,
+              position: 'relative',
             }}
           >
-            {/* Logo */}
+            {/* Logo pegado a la izquierda absoluta */}
             <MuiLink
               href="/"
               underline="none"
               sx={{
+                position: 'absolute',
+                left: 0,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                paddingLeft: 2,
                 display: 'flex',
                 alignItems: 'center',
-                flexShrink: 0,
-                paddingY: { xs: 0.75, sm: 1.25 }
               }}
             >
               <Typography
@@ -95,8 +98,16 @@ const Header = () => {
               </Typography>
             </MuiLink>
 
-            {/* Navegación Escritorio */}
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, justifyContent: 'center' }}>
+            {/* Navegación Escritorio centrada */}
+            <Box
+              sx={{
+                margin: '0 auto',
+                display: { xs: 'none', md: 'flex' },
+                justifyContent: 'center',
+                gap: 3,
+                flexGrow: 1,
+              }}
+            >
               {navItems.map((item) => (
                 <MuiLink
                   key={item.text}
@@ -108,7 +119,6 @@ const Header = () => {
                     display: 'block',
                     fontWeight: 500,
                     letterSpacing: '0.5px',
-                    margin: '0 10px',
                     paddingY: '8px',
                     '&:hover': {
                       backgroundColor: 'rgba(255, 255, 255, 0.08)',
@@ -120,13 +130,19 @@ const Header = () => {
               ))}
             </Box>
 
-            {/* Botón menú móvil */}
-            <Box sx={{ display: { xs: 'flex', md: 'none' }, marginLeft: 'auto' }}>
+            {/* Botón menú móvil centrado */}
+            <Box
+              sx={{
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
+                justifyContent: 'center',
+                margin: '0 auto',
+              }}
+            >
               <IconButton
                 size="large"
                 color="inherit"
                 aria-label="abrir menú"
-                edge="end"
                 onClick={toggleDrawer(true)}
               >
                 <MenuIcon sx={{ fontSize: '1.75rem' }} />
@@ -142,7 +158,7 @@ const Header = () => {
         open={drawerOpen}
         onClose={toggleDrawer(false)}
         PaperProps={{
-          sx: { backgroundColor: "background.paper" }
+          sx: { backgroundColor: 'background.paper' },
         }}
       >
         {drawerContent}
@@ -152,3 +168,5 @@ const Header = () => {
 };
 
 export default Header;
+
+

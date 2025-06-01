@@ -17,13 +17,15 @@ const CarritoFlotante = ({ carrito, setCarrito }) => {
 
   return (
     <>
-      {/* Botón flotante en la parte superior derecha */}
-      <Box sx={{
-        position: 'fixed',
-        top: 16,
-        right: 16,
-        zIndex: 1300
-      }}>
+      {/* Botón flotante en la parte superior derecha, con top más alto en móvil */}
+      <Box
+        sx={{
+          position: 'fixed',
+          top: { xs: 80, sm: 16 }, // mueve el botón más abajo en móviles
+          right: 16,
+          zIndex: 1300,
+        }}
+      >
         <IconButton color="white" onClick={toggleDrawer}>
           <Badge badgeContent={carrito.length} color="secondary">
             <ShoppingCartIcon sx={{ fontSize: 32 }} />
@@ -42,10 +44,17 @@ const CarritoFlotante = ({ carrito, setCarrito }) => {
             <Typography variant="body1">Tu carrito está vacío.</Typography>
           ) : (
             carrito.map((producto, index) => (
-              <Box key={index} sx={{ mb: 2, p: 1, border: '1px solid #ddd', borderRadius: 2 }}>
+              <Box
+                key={index}
+                sx={{ mb: 2, p: 1, border: '1px solid #ddd', borderRadius: 2 }}
+              >
                 <Typography variant="subtitle1">{producto.nombre}</Typography>
                 <Typography variant="body2">Precio: ${producto.precio}</Typography>
-                <Button size="small" color="error" onClick={() => eliminarProducto(index)}>
+                <Button
+                  size="small"
+                  color="error"
+                  onClick={() => eliminarProducto(index)}
+                >
                   Eliminar
                 </Button>
               </Box>
@@ -70,3 +79,7 @@ const CarritoFlotante = ({ carrito, setCarrito }) => {
 };
 
 export default CarritoFlotante;
+
+
+
+
